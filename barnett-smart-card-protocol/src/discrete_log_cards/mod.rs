@@ -9,6 +9,8 @@ use ark_ff::{to_bytes, One, PrimeField, ToBytes};
 use ark_marlin::rng::FiatShamirRng;
 use ark_std::rand::Rng;
 use ark_std::Zero;
+use ark_serialize::{CanonicalDeserialize, CanonicalSerialize, SerializationError};
+use ark_std::io::{Read, Write};
 use blake2::Blake2s;
 use proof_essentials::error::CryptoError;
 use proof_essentials::homomorphic_encryption::{
@@ -34,7 +36,7 @@ pub struct DLCards<'a, C: ProjectiveCurve> {
     _group: &'a PhantomData<C>,
 }
 
-#[derive(Clone, Debug, PartialEq, Eq)]
+#[derive(Clone, Debug, PartialEq, Eq, CanonicalSerialize, CanonicalDeserialize)]
 pub struct Parameters<C: ProjectiveCurve> {
     m: usize,
     n: usize,
