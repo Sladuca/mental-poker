@@ -34,6 +34,7 @@ pub struct DLCards<'a, C: ProjectiveCurve> {
     _group: &'a PhantomData<C>,
 }
 
+#[derive(Clone, Debug, PartialEq, Eq)]
 pub struct Parameters<C: ProjectiveCurve> {
     m: usize,
     n: usize,
