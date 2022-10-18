@@ -58,6 +58,10 @@ impl<C: ProjectiveCurve> Parameters<C> {
             generator,
         }
     }
+
+    pub fn num_cards(&self) -> usize {
+        self.m * self.n
+    }
 }
 
 pub type PublicKey<C> = el_gamal::PublicKey<C>;
