@@ -77,6 +77,8 @@ pub type MaskedCard<C> = el_gamal::Ciphertext<C>;
 /// then be aggregated to reveal the card.
 pub type RevealToken<C> = el_gamal::Plaintext<C>;
 
+pub type ZKProofShuffle<C: ProjectiveCurve> = shuffle::proof::Proof<C::ScalarField, ElGamal<C>, PedersenCommitment<C>>;
+
 const KEY_OWN_RNG_SEED: &'static [u8] = b"Key Ownership Proof";
 const MASKING_RNG_SEED: &'static [u8] = b"Masking Proof";
 const REMASKING_RNG_SEED: &'static [u8] = b"Remasking Proof";
