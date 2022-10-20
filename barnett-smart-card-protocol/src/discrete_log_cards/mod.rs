@@ -32,8 +32,11 @@ mod remasking;
 mod reveal;
 mod tests;
 
-pub struct DLCards<'a, C: ProjectiveCurve> {
-    _group: &'a PhantomData<C>,
+mod wasm;
+pub use wasm::*;
+
+pub struct DLCards<C: ProjectiveCurve> {
+    _group: PhantomData<C>,
 }
 
 #[derive(Clone, Debug, PartialEq, Eq, CanonicalSerialize, CanonicalDeserialize)]
@@ -92,7 +95,7 @@ const REMASKING_RNG_SEED: &'static [u8] = b"Remasking Proof";
 const REVEAL_RNG_SEED: &'static [u8] = b"Reveal Proof";
 const SHUFFLE_RNG_SEED: &'static [u8] = b"Shuffle Proof";
 
-impl<'a, C: ProjectiveCurve> BarnettSmartProtocol for DLCards<'a, C> {
+impl<C: ProjectiveCurve> BarnettSmartProtocol for DLCards<C> {
     type Scalar = C::ScalarField;
     type Enc = ElGamal<C>;
     type Comm = PedersenCommitment<C>;

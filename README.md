@@ -21,6 +21,10 @@ An example showing how to encode, hide, shuffle and distribute cards is provided
 cargo run --example round
 ```
 
+## Building WASM module
+
+`wasm-pack build branett-smart-card-protocol`
+
 ## License
 
 &copy; 2022 [Geometry](https://geometryresearch.xyz).
