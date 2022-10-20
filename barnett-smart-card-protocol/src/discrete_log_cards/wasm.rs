@@ -15,6 +15,7 @@ use serde::{Serialize, Deserialize};
 use proof_essentials::utils::rand::sample_vector;
 use proof_essentials::utils::permutation::Permutation;
 use serde_wasm_bindgen::{to_value, from_value};
+use borsh::{BorshDeserialize, BorshSerialize};
 
 use crate::discrete_log_cards::{PublicKey, PlayerSecretKey, Card, MaskedCard, RevealToken, ZKProofShuffle, Parameters};
 
@@ -34,7 +35,7 @@ type BnZKProofRemasking = <CardProtocol as BarnettSmartProtocol>::ZKProofRemaski
 type BnZKProofReveal = <CardProtocol as BarnettSmartProtocol>::ZKProofReveal;
 
 
-#[derive(Clone, Debug, Serialize, Deserialize)]
+#[derive(Clone, Debug, Serialize, Deserialize, BorshSerialize, BorshDeserialize)]
 pub struct BnPublicKeyBuf {
 	pub(crate) buf: Vec<u8>,
 }
@@ -66,7 +67,7 @@ impl BnPublicKeyBuf {
 	}
 }
 
-#[derive(Clone, Debug, Serialize, Deserialize)]
+#[derive(Clone, Debug, Serialize, Deserialize, BorshSerialize, BorshDeserialize)]
 pub struct BnPlayerSecretKeyBuf {
 	pub(crate) buf: Vec<u8>,
 }
@@ -98,7 +99,7 @@ impl BnPlayerSecretKeyBuf {
 	}
 }
 
-#[derive(Clone, Debug, Serialize, Deserialize)]
+#[derive(Clone, Debug, Serialize, Deserialize, BorshSerialize, BorshDeserialize)]
 pub struct BnCardBuf{
 	pub(crate) buf: Vec<u8>,
 }
@@ -130,7 +131,7 @@ impl BnCardBuf{
 	}
 }
 
-#[derive(Clone, Debug, Serialize, Deserialize)]
+#[derive(Clone, Debug, Serialize, Deserialize, BorshSerialize, BorshDeserialize)]
 pub struct BnMaskedCardBuf{
 	pub(crate) buf: Vec<u8>,
 }
@@ -162,7 +163,7 @@ impl BnMaskedCardBuf{
 	}
 }
 
-#[derive(Clone, Debug, Serialize, Deserialize)]
+#[derive(Clone, Debug, Serialize, Deserialize, BorshSerialize, BorshDeserialize)]
 pub struct BnRevealTokenBuf{
 	pub(crate) buf: Vec<u8>,
 }
@@ -194,7 +195,7 @@ impl BnRevealTokenBuf{
 	}
 }
 
-#[derive(Clone, Debug, Serialize, Deserialize)]
+#[derive(Clone, Debug, Serialize, Deserialize, BorshSerialize, BorshDeserialize)]
 pub struct BnZKProofShuffleBuf {
 	pub(crate) buf: Vec<u8>,
 }
@@ -227,7 +228,7 @@ impl BnZKProofShuffleBuf{
 }
 
 
-#[derive(Clone, Debug, Serialize, Deserialize)]
+#[derive(Clone, Debug, Serialize, Deserialize, BorshSerialize, BorshDeserialize)]
 pub struct BnZKProofKeyOwnershipBuf {
 	pub(crate) buf: Vec<u8>,
 }
@@ -259,7 +260,7 @@ impl BnZKProofKeyOwnershipBuf {
 	}
 }
 
-#[derive(Clone, Debug, Serialize, Deserialize)]
+#[derive(Clone, Debug, Serialize, Deserialize, BorshSerialize, BorshDeserialize)]
 pub struct BnZKProofMaskingBuf {
 	pub(crate) buf: Vec<u8>,
 }
@@ -291,7 +292,7 @@ impl BnZKProofMaskingBuf {
 	}
 }
 
-#[derive(Clone, Debug, Serialize, Deserialize)]
+#[derive(Clone, Debug, Serialize, Deserialize, BorshSerialize, BorshDeserialize)]
 pub struct BnZKProofRemaskingBuf { 
 	pub(crate) buf: Vec<u8>,
 }
@@ -323,7 +324,7 @@ impl BnZKProofRemaskingBuf {
 	}
 }
 
-#[derive(Clone, Debug, Serialize, Deserialize)]
+#[derive(Clone, Debug, Serialize, Deserialize, BorshSerialize, BorshDeserialize)]
 pub struct BnZKProofRevealBuf {
 	pub(crate) buf: Vec<u8>,
 }
@@ -355,7 +356,7 @@ impl BnZKProofRevealBuf {
 	}
 }
 
-#[derive(Clone, Debug, Serialize, Deserialize)]
+#[derive(Clone, Debug, Serialize, Deserialize, BorshSerialize, BorshDeserialize)]
 pub struct BnParamsBuf{
 	pub(crate) buf: Vec<u8>,
 }
@@ -387,7 +388,7 @@ impl BnParamsBuf{
 	}
 }
 
-#[derive(Clone, Debug, Serialize, Deserialize)]
+#[derive(Clone, Debug, Serialize, Deserialize, BorshSerialize, BorshDeserialize)]
 pub struct BnKeypairBuf {
 	pub(crate) pk: Vec<u8>,
 	pub(crate) sk: Vec<u8>,
@@ -423,7 +424,7 @@ impl BnKeypairBuf {
 	}
 }
 
-#[derive(Clone, Debug, Serialize, Deserialize)]
+#[derive(Clone, Debug, Serialize, Deserialize, BorshSerialize, BorshDeserialize)]
 pub struct BnMaskingOutputBuf {
 	pub(crate) masked_card: Vec<u8>,
 	pub(crate) proof: Vec<u8>,
@@ -460,7 +461,7 @@ impl BnMaskingOutputBuf {
 }
 
 
-#[derive(Clone, Debug, Serialize, Deserialize)]
+#[derive(Clone, Debug, Serialize, Deserialize, BorshSerialize, BorshDeserialize)]
 pub struct BnShuffleOutputBuf {
 	pub(crate) shuffled_deck: Vec<Vec<u8>>,
 	pub(crate) proof: Vec<u8>,
@@ -503,7 +504,7 @@ impl BnShuffleOutputBuf {
 	}
 }
 
-#[derive(Clone, Debug, Serialize, Deserialize)]
+#[derive(Clone, Debug, Serialize, Deserialize, BorshSerialize, BorshDeserialize)]
 pub struct BnRevealTokenWithProofBuf {
 	pub(crate) reveal_token: Vec<u8>,
 	pub(crate) proof: Vec<u8>,
