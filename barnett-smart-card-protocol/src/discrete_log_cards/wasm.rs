@@ -19,20 +19,20 @@ use borsh::{BorshDeserialize, BorshSerialize};
 
 use crate::discrete_log_cards::{PublicKey, PlayerSecretKey, Card, MaskedCard, RevealToken, ZKProofShuffle, Parameters};
 
-type BnScalar = Fr;
-type BnPublicKey = PublicKey<EdwardsProjective>;
-type BnPlayerSecretKey = PlayerSecretKey<EdwardsProjective>;
-type BnCard = Card<EdwardsProjective>;
-type BnMaskedCard = MaskedCard<EdwardsProjective>;
-type BnRevealToken = RevealToken<EdwardsProjective>;
-type BnZKProofShuffle = ZKProofShuffle<EdwardsProjective>;
-type BnParameters = Parameters<EdwardsProjective>;
+pub type BnScalar = Fr;
+pub type BnPublicKey = PublicKey<EdwardsProjective>;
+pub type BnPlayerSecretKey = PlayerSecretKey<EdwardsProjective>;
+pub type BnCard = Card<EdwardsProjective>;
+pub type BnMaskedCard = MaskedCard<EdwardsProjective>;
+pub type BnRevealToken = RevealToken<EdwardsProjective>;
+pub type BnZKProofShuffle = ZKProofShuffle<EdwardsProjective>;
+pub type BnParameters = Parameters<EdwardsProjective>;
 
-type CardProtocol = DLCards<EdwardsProjective>;
-type BnZKProofKeyOwnership = <CardProtocol as BarnettSmartProtocol>::ZKProofKeyOwnership;
-type BnZKProofMasking = <CardProtocol as BarnettSmartProtocol>::ZKProofMasking;
-type BnZKProofRemasking = <CardProtocol as BarnettSmartProtocol>::ZKProofRemasking;
-type BnZKProofReveal = <CardProtocol as BarnettSmartProtocol>::ZKProofReveal;
+pub type BnCardProtocol = DLCards<EdwardsProjective>;
+pub type BnZKProofKeyOwnership = <BnCardProtocol as BarnettSmartProtocol>::ZKProofKeyOwnership;
+pub type BnZKProofMasking = <BnCardProtocol as BarnettSmartProtocol>::ZKProofMasking;
+pub type BnZKProofRemasking = <BnCardProtocol as BarnettSmartProtocol>::ZKProofRemasking;
+pub type BnZKProofReveal = <BnCardProtocol as BarnettSmartProtocol>::ZKProofReveal;
 
 
 #[derive(Clone, Debug, Serialize, Deserialize, BorshSerialize, BorshDeserialize)]
@@ -554,7 +554,7 @@ impl WasmBnDlCards {
 	pub fn player_keygen(params: JsValue, entropy: &[u8]) -> Result<JsValue, JsError> {
 		let mut rng = StdRng::from_seed(entropy[0..32].try_into().map_err(|_| JsError::new("entropy must be >= 32 bytes"))?);
 		let params = BnParamsBuf::from_js(params)?;
-		let (pk, sk) = CardProtocol::player_keygen(&mut rng, &params).map_err(|_| JsError::new("failed to generate keypair"))?;
+		let (pk, sk) = BnCardProtocol::player_keygen(&mut rng, &params).map_err(|_| JsError::new("failed to generate keypair"))?;
 		BnKeypairBuf::to_js(pk, sk)
 	}
 
@@ -564,7 +564,7 @@ impl WasmBnDlCards {
 		let pk = BnPublicKeyBuf::from_js(pk)?; 
 		let sk = BnPlayerSecretKeyBuf::from_js(sk)?;
 
-		let proof = CardProtocol::prove_key_ownership(&mut rng, &params, &pk, &sk, &player_id.as_bytes()).map_err(|_| JsError::new("failed to generate proof"))?;
+		let proof = BnCardProtocol::prove_key_ownership(&mut rng, &params, &pk, &sk, &player_id.as_bytes()).map_err(|_| JsError::new("failed to generate proof"))?;
 		BnZKProofKeyOwnershipBuf::to_js(proof)
 	}
 
@@ -574,7 +574,7 @@ impl WasmBnDlCards {
 		let original_card = BnCardBuf::from_js(original_card)?;
 		let mut rng = StdRng::from_seed(entropy[0..32].try_into().map_err(|_| JsError::new("entropy must be >= 32 bytes"))?);
 
-		let (masked_card, proof) = CardProtocol::mask(&mut rng, &pp, &shared_key, &original_card, &BnScalar::one()).map_err(|_| JsError::new("failed to mask card"))?;
+		let (masked_card, proof) = BnCardProtocol::mask(&mut rng, &pp, &shared_key, &original_card, &BnScalar::one()).map_err(|_| JsError::new("failed to mask card"))?;
 		BnMaskingOutputBuf::to_js(masked_card, proof)
 	}
 
@@ -591,7 +591,7 @@ impl WasmBnDlCards {
 		let permutation = Permutation::new(&mut rng, deck.len());
 
 		let deck = deck.into_iter().map(|card| BnMaskedCardBuf::from_js(card)).collect::<Result<Vec<_>, _>>()?;
-		let (shuffled_deck, proof) = CardProtocol::shuffle_and_remask(&mut rng, &pp, &shared_key, &deck, &masking_factors, &permutation).map_err(|_| JsError::new("failed to shuffle and remask deck"))?;
+		let (shuffled_deck, proof) = BnCardProtocol::shuffle_and_remask(&mut rng, &pp, &shared_key, &deck, &masking_factors, &permutation).map_err(|_| JsError::new("failed to shuffle and remask deck"))?;
 
 		BnShuffleOutputBuf::to_js(shuffled_deck, proof)
 	}
@@ -603,7 +603,7 @@ impl WasmBnDlCards {
 		let masked_card = BnMaskedCardBuf::from_js(masked_card)?; 
 		let mut rng = StdRng::from_seed(entropy[0..32].try_into().map_err(|_| JsError::new("entropy must be >= 32 bytes"))?);
 
-		let (reveal_token, proof) = CardProtocol::compute_reveal_token(&mut rng, &pp, &sk, &pk, &masked_card).map_err(|_| JsError::new("failed to compute reveal token"))?;
+		let (reveal_token, proof) = BnCardProtocol::compute_reveal_token(&mut rng, &pp, &sk, &pk, &masked_card).map_err(|_| JsError::new("failed to compute reveal token"))?;
 		BnRevealTokenWithProofBuf::to_js(reveal_token, proof)
 	}
 
@@ -618,7 +618,7 @@ impl WasmBnDlCards {
 			decryption_key.push((token, proof, pk));
 		}
 
-		let card = CardProtocol::unmask(&pp, &decryption_key, &masked_card).map_err(|_| JsError::new("failed to unmask card"))?;
+		let card = BnCardProtocol::unmask(&pp, &decryption_key, &masked_card).map_err(|_| JsError::new("failed to unmask card"))?;
 		BnCardBuf::to_js(card)
 	}
 }
