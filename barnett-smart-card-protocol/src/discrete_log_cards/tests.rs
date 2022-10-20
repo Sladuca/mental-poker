@@ -104,7 +104,7 @@ mod test {
             .collect::<Vec<(PublicKey, _, _)>>();
 
         let test_aggregate =
-            CardProtocol::compute_aggregate_key(&parameters, &key_proof_info).unwrap();
+            CardProtocol::compute_aggregate_key(&parameters, &key_proof_info, false).unwrap();
 
         assert_eq!(test_aggregate, expected_shared_key);
 
@@ -112,7 +112,7 @@ mod test {
         bad_key_proof_pairs[0].0 = PublicKey::zero();
 
         let test_fail_aggregate =
-            CardProtocol::compute_aggregate_key(&parameters, &bad_key_proof_pairs);
+            CardProtocol::compute_aggregate_key(&parameters, &bad_key_proof_pairs, false);
 
         assert_eq!(
             test_fail_aggregate,

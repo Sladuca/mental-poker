@@ -179,12 +179,15 @@ impl<C: ProjectiveCurve> BarnettSmartProtocol for DLCards<C> {
     fn compute_aggregate_key<B: ToBytes>(
         pp: &Self::Parameters,
         player_keys_proof_info: &Vec<(Self::PlayerPublicKey, Self::ZKProofKeyOwnership, B)>,
+        skip_verify: bool,
     ) -> Result<Self::AggregatePublicKey, CardProtocolError> {
         let zero = Self::PlayerPublicKey::zero();
 
         let mut acc = zero;
         for (pk, proof, player_public_info) in player_keys_proof_info {
-            Self::verify_key_ownership(pp, pk, player_public_info, proof)?;
+            if !skip_verify {
+                Self::verify_key_ownership(pp, pk, player_public_info, proof)?;
+            }
             acc = acc + *pk;
         }
 

@@ -247,7 +247,7 @@ fn main() -> anyhow::Result<()> {
         .collect::<Vec<_>>();
 
     // Each player should run this computation. Alternatively, it can be ran by a smart contract
-    let joint_pk = CardProtocol::compute_aggregate_key(&parameters, &key_proof_info)?;
+    let joint_pk = CardProtocol::compute_aggregate_key(&parameters, &key_proof_info, false)?;
 
     // Each player should run this computation and verify that all players agree on the initial deck
     let deck_and_proofs: Vec<(MaskedCard, RemaskingProof)> = card_mapping
