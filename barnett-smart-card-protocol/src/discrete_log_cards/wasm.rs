@@ -558,7 +558,7 @@ impl BnInitialDeckBuf {
 
 #[derive(Clone, Debug, Serialize, Deserialize, BorshSerialize, BorshDeserialize)]
 pub struct BnShuffleOutputBuf {
-    pub(crate) shuffled_deck: Vec<Vec<u8>>,
+    pub shuffled_deck: Vec<Vec<u8>>,
     pub(crate) proof: Vec<u8>,
 }
 
