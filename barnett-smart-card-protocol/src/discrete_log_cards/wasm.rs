@@ -442,8 +442,8 @@ impl BnKeypairBuf {
     pub fn serialize(_pk: BnPublicKey, _sk: BnPlayerSecretKey) -> Result<Self, SerializationError> {
         let mut pk = Vec::new();
         let mut sk = Vec::new();
-        _pk.serialize(&mut pk)?;
-        _sk.serialize(&mut sk)?;
+        _pk.serialize_uncompressed(&mut pk)?;
+        _sk.serialize_uncompressed(&mut sk)?;
         Ok(Self { pk, sk })
     }
 
@@ -485,8 +485,8 @@ impl BnMaskingOutputBuf {
     ) -> Result<Self, SerializationError> {
         let mut masked_card = Vec::new();
         let mut proof = Vec::new();
-        _masked_card.serialize(&mut masked_card)?;
-        _proof.serialize(&mut proof)?;
+        _masked_card.serialize_uncompressed(&mut masked_card)?;
+        _proof.serialize_uncompressed(&mut proof)?;
         Ok(Self { masked_card, proof })
     }
 
@@ -533,7 +533,7 @@ impl BnShuffleOutputBuf {
         let mut proof = Vec::new();
         for card in _shuffled_deck {
             let mut buf = Vec::new();
-            card.serialize(&mut buf)?;
+            card.serialize_uncompressed(&mut buf)?;
             shuffled_deck.push(buf);
         }
         _proof.serialize(&mut proof)?;
@@ -590,8 +590,8 @@ impl BnRevealTokenWithProofBuf {
     ) -> Result<Self, SerializationError> {
         let mut reveal_token = Vec::new();
         let mut proof = Vec::new();
-        _reveal_token.serialize(&mut reveal_token)?;
-        _proof.serialize(&mut proof)?;
+        _reveal_token.serialize_uncompressed(&mut reveal_token)?;
+        _proof.serialize_uncompressed(&mut proof)?;
         Ok(Self {
             reveal_token,
             proof,
