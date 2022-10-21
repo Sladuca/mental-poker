@@ -172,7 +172,7 @@ impl Player {
         let own_reveal_token = self.compute_reveal_token(rng, parameters, card)?;
         reveal_tokens.push(own_reveal_token);
 
-        let unmasked_card = CardProtocol::unmask(&parameters, reveal_tokens, card)?;
+        let unmasked_card = CardProtocol::unmask(&parameters, reveal_tokens, card, false)?;
         let opened_card = card_mappings.get(&unmasked_card);
         let opened_card = opened_card.ok_or(GameErrors::InvalidCard)?;
 
@@ -200,7 +200,7 @@ pub fn open_card(
     card_mappings: &HashMap<Card, ClassicPlayingCard>,
     card: &MaskedCard,
 ) -> Result<ClassicPlayingCard, anyhow::Error> {
-    let unmasked_card = CardProtocol::unmask(&parameters, reveal_tokens, card)?;
+    let unmasked_card = CardProtocol::unmask(&parameters, reveal_tokens, card, false)?;
     let opened_card = card_mappings.get(&unmasked_card);
     let opened_card = opened_card.ok_or(GameErrors::InvalidCard)?;
 

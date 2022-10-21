@@ -175,6 +175,7 @@ pub trait BarnettSmartProtocol {
             Self::PlayerPublicKey,
         )>,
         masked_card: &Self::MaskedCard,
+        skip_verify: bool
     ) -> Result<Self::Card, CardProtocolError>;
 
     /// Shuffle and remask a deck of masked cards using a player-chosen permutation and vector of

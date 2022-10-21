@@ -380,13 +380,16 @@ impl<C: ProjectiveCurve> BarnettSmartProtocol for DLCards<C> {
             Self::PlayerPublicKey,
         )>,
         masked_card: &Self::MaskedCard,
+        skip_verify: bool
     ) -> Result<Self::Card, CardProtocolError> {
         let zero = Self::RevealToken::zero();
 
         let mut aggregate_token = zero;
 
         for (token, proof, pk) in decryption_key {
-            Self::verify_reveal(pp, pk, token, masked_card, proof)?;
+            if !skip_verify {
+                Self::verify_reveal(pp, pk, token, masked_card, proof)?;
+            }
 
             aggregate_token = aggregate_token + *token;
         }

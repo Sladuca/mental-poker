@@ -768,7 +768,7 @@ impl WasmBnDlCards {
             decryption_key.push((token, proof, pk));
         }
 
-        let card = BnCardProtocol::unmask(&pp, &decryption_key, &masked_card)
+        let card = BnCardProtocol::unmask(&pp, &decryption_key, &masked_card, false)
             .map_err(|_| JsError::new("failed to unmask card"))?;
         BnCardBuf::to_js(card)
     }

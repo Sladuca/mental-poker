@@ -156,14 +156,14 @@ mod test {
             })
             .collect::<Vec<_>>();
 
-        let unmasked = CardProtocol::unmask(&parameters, &decryption_key, &masked).unwrap();
+        let unmasked = CardProtocol::unmask(&parameters, &decryption_key, &masked, false).unwrap();
 
         assert_eq!(card, unmasked);
 
         let mut bad_decryption_key = decryption_key;
         bad_decryption_key[0].0 = RevealToken::rand(rng);
 
-        let failed_decryption = CardProtocol::unmask(&parameters, &bad_decryption_key, &masked);
+        let failed_decryption = CardProtocol::unmask(&parameters, &bad_decryption_key, &masked, false);
 
         assert_eq!(
             failed_decryption,
