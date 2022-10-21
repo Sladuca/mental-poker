@@ -18,9 +18,9 @@ ark-serialize = "0.3.0"
 ark-std = { version = "0.3.0", features = ["std"] }
 ark-ed-on-bn254 = "0.3.0"
 blake2 = { version = "0.9", default-features = false }
-merlin = "3.0.0"
+merlin = { version = "3.0.0", default-features = false }
 proof-essentials = { git = "https://github.com/Sladuca/proof-toolbox.git" }
-rand = "0.8.4"
+rand = { version = "0.8.4", default-features = false, features = ["std_rng"] }
 starknet-curve = { git = "https://github.com/Sladuca/proof-toolbox.git" }
 thiserror = "1.0.30"
 wasm-bindgen = { version = "0.2" }
@@ -28,6 +28,9 @@ serde = { version = "1.0", features = ["derive"] }
 serde-wasm-bindgen = { version = "0.4" }
 borsh = "0.9.3"
 borsh-derive = "0.9.3"
+
+[dev-dependencies]
+rand = "0.8.4"
 
 [[example]]
 name = "round"
