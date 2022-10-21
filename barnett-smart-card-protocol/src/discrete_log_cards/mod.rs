@@ -3,7 +3,6 @@ use super::{Mask, Remask, Reveal};
 
 use crate::error::CardProtocolError;
 
-use anyhow::Result;
 use ark_ec::{AffineCurve, ProjectiveCurve};
 use ark_ff::{to_bytes, One, PrimeField, ToBytes};
 use ark_marlin::rng::FiatShamirRng;

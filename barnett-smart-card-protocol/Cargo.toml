@@ -9,27 +9,26 @@ edition = "2021"
 crate-type = ["cdylib", "rlib"]
 
 [dependencies]
-anyhow = "1.0.55"
 ark-crypto-primitives = "0.3.0"
 ark-ec = "0.3.0"
 ark-ff = "0.3.0"
-ark-marlin = "0.3.0"
+ark-marlin = { version = "0.3.0", default-features = false }
 ark-serialize = "0.3.0"
-ark-std = { version = "0.3.0", features = ["std"] }
+ark-std = { version = "0.3.0", default-features = false }
 ark-ed-on-bn254 = "0.3.0"
 blake2 = { version = "0.9", default-features = false }
 merlin = { version = "3.0.0", default-features = false }
 proof-essentials = { git = "https://github.com/Sladuca/proof-toolbox.git" }
 rand = { version = "0.8.4", default-features = false, features = ["std_rng"] }
-starknet-curve = { git = "https://github.com/Sladuca/proof-toolbox.git" }
 thiserror = "1.0.30"
 wasm-bindgen = { version = "0.2" }
 serde = { version = "1.0", features = ["derive"] }
 serde-wasm-bindgen = { version = "0.4" }
 borsh = "0.9.3"
-borsh-derive = "0.9.3"
 
 [dev-dependencies]
+starknet-curve = { git = "https://github.com/Sladuca/proof-toolbox.git" }
+anyhow = "1.0.55"
 rand = "0.8.4"
 
 [[example]]
