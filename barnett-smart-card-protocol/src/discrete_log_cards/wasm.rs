@@ -6,6 +6,7 @@ use crate::BarnettSmartProtocol;
 use ark_ff::One;
 use ark_serialize::{CanonicalDeserialize, CanonicalSerialize, SerializationError};
 use ark_std::io::{Read, Write, Cursor};
+use ark_ec::ProjectiveCurve;
 use ark_ed_on_bn254::{EdwardsProjective, Fr};
 use rand::rngs::StdRng;
 use rand::SeedableRng;
@@ -13,7 +14,9 @@ use wasm_bindgen::prelude::*;
 use wasm_bindgen::JsError;
 use serde::{Serialize, Deserialize};
 use proof_essentials::utils::rand::sample_vector;
+use proof_essentials::homomorphic_encryption::el_gamal;
 use proof_essentials::utils::permutation::Permutation;
+
 use serde_wasm_bindgen::{to_value, from_value};
 use borsh::{BorshDeserialize, BorshSerialize};
 
@@ -621,4 +624,31 @@ impl WasmBnDlCards {
 		let card = BnCardProtocol::unmask(&pp, &decryption_key, &masked_card).map_err(|_| JsError::new("failed to unmask card"))?;
 		BnCardBuf::to_js(card)
 	}
+}
+
+pub fn get_card_elems_buf(num_cards: usize) -> Result<Vec<BnCardBuf>, SerializationError> {
+	let mut card_elems = Vec::new();
+	let mut g = EdwardsProjective::prime_subgroup_generator();
+	for _ in 0..num_cards {
+		let card_elem = el_gamal::Plaintext(g.into_affine());
+		card_elems.push(BnCardBuf::serialize(card_elem)?);
+
+		g = g.double();
+	}
+
+	Ok(card_elems)
+}
+
+#[wasm_bindgen]
+pub fn get_card_elemns_js(num_cards: usize) -> Result<Vec<JsValue>, JsError> {
+	let mut card_elems = Vec::new();
+	let mut g = EdwardsProjective::prime_subgroup_generator();
+	for _ in 0..num_cards {
+		let card_elem = el_gamal::Plaintext(g.into_affine());
+		card_elems.push(BnCardBuf::to_js(card_elem)?);
+
+		g = g.double();
+	}
+
+	Ok(card_elems)
 }
