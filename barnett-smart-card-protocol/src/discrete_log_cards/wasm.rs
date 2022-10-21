@@ -361,7 +361,7 @@ impl BnZKProofRevealBuf {
 
 #[derive(Clone, Debug, Serialize, Deserialize, BorshSerialize, BorshDeserialize)]
 pub struct BnParamsBuf{
-	pub(crate) buf: Vec<u8>,
+	pub buf: Vec<u8>,
 }
 
 impl BnParamsBuf{
