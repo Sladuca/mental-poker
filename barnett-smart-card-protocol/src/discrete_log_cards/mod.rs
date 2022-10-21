@@ -146,7 +146,7 @@ impl<C: ProjectiveCurve> BarnettSmartProtocol for DLCards<C> {
         pp: &Self::Parameters,
         pk: &Self::PlayerPublicKey,
         sk: &Self::PlayerSecretKey,
-        player_public_info: &B,
+        player_public_info: B,
     ) -> Result<Self::ZKProofKeyOwnership, CryptoError> {
         let mut fs_rng =
             FiatShamirRng::<Blake2s>::from_seed(&to_bytes![KEY_OWN_RNG_SEED, player_public_info]?);
@@ -163,7 +163,7 @@ impl<C: ProjectiveCurve> BarnettSmartProtocol for DLCards<C> {
     fn verify_key_ownership<B: ToBytes>(
         pp: &Self::Parameters,
         pk: &Self::PlayerPublicKey,
-        player_public_info: &B,
+        player_public_info: B,
         proof: &Self::ZKProofKeyOwnership,
     ) -> Result<(), CryptoError> {
         let mut fs_rng =

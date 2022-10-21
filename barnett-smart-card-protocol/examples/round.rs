@@ -138,11 +138,11 @@ struct Player {
 }
 
 impl Player {
-    pub fn new<R: Rng>(rng: &mut R, pp: &CardParameters, name: &Vec<u8>) -> anyhow::Result<Self> {
+    pub fn new<R: Rng>(rng: &mut R, pp: &CardParameters, name: &[u8]) -> anyhow::Result<Self> {
         let (pk, sk) = CardProtocol::player_keygen(rng, pp)?;
         let proof_key = CardProtocol::prove_key_ownership(rng, pp, &pk, &sk, name)?;
         Ok(Self {
-            name: name.clone(),
+            name: name.to_vec(),
             sk,
             pk,
             proof_key,
@@ -234,10 +234,10 @@ fn main() -> anyhow::Result<()> {
     let parameters = CardProtocol::setup(rng, m, n)?;
     let card_mapping = encode_cards(rng, num_of_cards);
 
-    let mut andrija = Player::new(rng, &parameters, &to_bytes![b"Andrija"].unwrap())?;
-    let mut kobi = Player::new(rng, &parameters, &to_bytes![b"Kobi"].unwrap())?;
-    let mut nico = Player::new(rng, &parameters, &to_bytes![b"Nico"].unwrap())?;
-    let mut tom = Player::new(rng, &parameters, &to_bytes![b"Tom"].unwrap())?;
+    let mut andrija = Player::new(rng, &parameters, b"Andrija")?;
+    let mut kobi = Player::new(rng, &parameters, b"Kobi")?;
+    let mut nico = Player::new(rng, &parameters, b"Nico")?;
+    let mut tom = Player::new(rng, &parameters, b"Tom")?;
 
     let players = vec![andrija.clone(), kobi.clone(), nico.clone(), tom.clone()];
 

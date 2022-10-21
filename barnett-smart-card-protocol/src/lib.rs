@@ -89,14 +89,14 @@ pub trait BarnettSmartProtocol {
         pp: &Self::Parameters,
         pk: &Self::PlayerPublicKey,
         sk: &Self::PlayerSecretKey,
-        player_public_info: &B,
+        player_public_info: B,
     ) -> Result<Self::ZKProofKeyOwnership, CryptoError>;
 
     /// Verify a proof od key ownership
     fn verify_key_ownership<B: ToBytes>(
         pp: &Self::Parameters,
         pk: &Self::PlayerPublicKey,
-        player_public_info: &B,
+        player_public_info: B,
         proof: &Self::ZKProofKeyOwnership,
     ) -> Result<(), CryptoError>;
 

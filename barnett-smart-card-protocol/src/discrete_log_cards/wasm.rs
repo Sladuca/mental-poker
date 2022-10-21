@@ -659,7 +659,7 @@ impl WasmBnDlCards {
         let sk = BnPlayerSecretKeyBuf::from_js(sk)?;
 
         let proof =
-            BnCardProtocol::prove_key_ownership(&mut rng, &params, &pk, &sk, &player_id.as_bytes())
+            BnCardProtocol::prove_key_ownership(&mut rng, &params, &pk, &sk, player_id.as_bytes())
                 .map_err(|_| JsError::new("failed to generate proof"))?;
         BnZKProofKeyOwnershipBuf::to_js(proof)
     }
