@@ -241,13 +241,14 @@ fn main() -> anyhow::Result<()> {
 
     let players = vec![andrija.clone(), kobi.clone(), nico.clone(), tom.clone()];
 
-    let key_proof_info = players
-        .iter()
-        .map(|p| (p.pk, p.proof_key, p.name.clone()))
-        .collect::<Vec<_>>();
-
+    let mut key_infos = Vec::new();
+    let mut proofs = Vec::new();
+    for player in players.iter() {
+        key_infos.push((player.pk, player.name.clone()));
+        proofs.push(player.proof_key);
+    }
     // Each player should run this computation. Alternatively, it can be ran by a smart contract
-    let joint_pk = CardProtocol::compute_aggregate_key(&parameters, &key_proof_info, false)?;
+    let joint_pk = CardProtocol::compute_aggregate_key(&parameters, &key_infos, Some(&proofs))?;
 
     // Each player should run this computation and verify that all players agree on the initial deck
     let deck_and_proofs: Vec<(MaskedCard, RemaskingProof)> = card_mapping

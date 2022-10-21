@@ -103,8 +103,8 @@ pub trait BarnettSmartProtocol {
     /// Use all the public keys and zk-proofs to compute a verified aggregate public key
     fn compute_aggregate_key<B: ToBytes>(
         pp: &Self::Parameters,
-        player_keys_proof_info: &Vec<(Self::PlayerPublicKey, Self::ZKProofKeyOwnership, B)>,
-        skip_verify: bool
+        player_keys_info: &Vec<(Self::PlayerPublicKey, B)>,
+        player_proofs: Option<&[Self::ZKProofKeyOwnership]>,
     ) -> Result<Self::AggregatePublicKey, CardProtocolError>;
 
     /// Use the shared public key and a (private) random scalar `alpha` to mask a card.

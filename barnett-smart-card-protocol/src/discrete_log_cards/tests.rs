@@ -97,22 +97,23 @@ mod test {
             })
             .collect::<Vec<_>>();
 
-        let key_proof_info = players
-            .iter()
-            .zip(proofs.iter())
-            .map(|(player, &proof)| (player.0, proof.clone(), player.2))
-            .collect::<Vec<(PublicKey, _, _)>>();
+        let mut key_infos = Vec::new();
+        let mut _proofs = Vec::new();
+        for (player, proof) in players.iter().zip(proofs.iter()) {
+            key_infos.push((player.0, player.2));
+            _proofs.push(proof.clone());
+        }
 
         let test_aggregate =
-            CardProtocol::compute_aggregate_key(&parameters, &key_proof_info, false).unwrap();
+            CardProtocol::compute_aggregate_key(&parameters, &key_infos, Some(&proofs)).unwrap();
 
         assert_eq!(test_aggregate, expected_shared_key);
 
-        let mut bad_key_proof_pairs = key_proof_info;
-        bad_key_proof_pairs[0].0 = PublicKey::zero();
+        let mut bad_key_infos = key_infos;
+        bad_key_infos[0].0 = PublicKey::zero();
 
         let test_fail_aggregate =
-            CardProtocol::compute_aggregate_key(&parameters, &bad_key_proof_pairs, false);
+            CardProtocol::compute_aggregate_key(&parameters, &bad_key_infos, Some(&proofs));
 
         assert_eq!(
             test_fail_aggregate,
