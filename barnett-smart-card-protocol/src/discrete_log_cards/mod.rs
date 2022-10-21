@@ -6,10 +6,10 @@ use crate::error::CardProtocolError;
 use ark_ec::{AffineCurve, ProjectiveCurve};
 use ark_ff::{to_bytes, One, PrimeField, ToBytes};
 use ark_marlin::rng::FiatShamirRng;
-use ark_std::rand::Rng;
-use ark_std::Zero;
 use ark_serialize::{CanonicalDeserialize, CanonicalSerialize, SerializationError};
 use ark_std::io::{Read, Write};
+use ark_std::rand::Rng;
+use ark_std::Zero;
 use blake2::Blake2s;
 use proof_essentials::error::CryptoError;
 use proof_essentials::homomorphic_encryption::{
@@ -86,7 +86,8 @@ pub type MaskedCard<C> = el_gamal::Ciphertext<C>;
 /// then be aggregated to reveal the card.
 pub type RevealToken<C> = el_gamal::Plaintext<C>;
 
-pub type ZKProofShuffle<C: ProjectiveCurve> = shuffle::proof::Proof<C::ScalarField, ElGamal<C>, PedersenCommitment<C>>;
+pub type ZKProofShuffle<C: ProjectiveCurve> =
+    shuffle::proof::Proof<C::ScalarField, ElGamal<C>, PedersenCommitment<C>>;
 
 const KEY_OWN_RNG_SEED: &'static [u8] = b"Key Ownership Proof";
 const MASKING_RNG_SEED: &'static [u8] = b"Masking Proof";
