@@ -40,11 +40,11 @@ pub struct DLCards<C: ProjectiveCurve> {
 
 #[derive(Clone, Debug, PartialEq, Eq, CanonicalSerialize, CanonicalDeserialize)]
 pub struct Parameters<C: ProjectiveCurve> {
-    m: usize,
-    n: usize,
-    enc_parameters: el_gamal::Parameters<C>,
-    commit_parameters: pedersen::CommitKey<C>,
-    generator: el_gamal::Generator<C>,
+    pub m: usize,
+    pub n: usize,
+    pub enc_parameters: el_gamal::Parameters<C>,
+    pub commit_parameters: pedersen::CommitKey<C>,
+    pub generator: el_gamal::Generator<C>,
 }
 
 impl<C: ProjectiveCurve> Parameters<C> {
