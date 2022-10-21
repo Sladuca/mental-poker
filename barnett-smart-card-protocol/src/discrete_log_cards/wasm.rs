@@ -55,12 +55,12 @@ impl BnPublicKeyBuf {
 
     pub fn serialize(item: BnPublicKey) -> Result<Self, SerializationError> {
         let mut buf = Vec::new();
-        item.serialize_uncompressed(&mut buf)?;
+        item.serialize(&mut buf)?;
         Ok(Self { buf })
     }
 
     pub fn deserialize(&self) -> Result<BnPublicKey, SerializationError> {
-        BnPublicKey::deserialize_uncompressed(self.buf.as_slice())
+        BnPublicKey::deserialize(self.buf.as_slice())
     }
 
     #[cfg(feature = "js")]
@@ -90,12 +90,12 @@ impl BnPlayerSecretKeyBuf {
 
     pub fn serialize(item: BnPlayerSecretKey) -> Result<Self, SerializationError> {
         let mut buf = Vec::new();
-        item.serialize_uncompressed(&mut buf)?;
+        item.serialize(&mut buf)?;
         Ok(Self { buf })
     }
 
     pub fn deserialize(&self) -> Result<BnPlayerSecretKey, SerializationError> {
-        BnPlayerSecretKey::deserialize_uncompressed(self.buf.as_slice())
+        BnPlayerSecretKey::deserialize(self.buf.as_slice())
     }
 
     #[cfg(feature = "js")]
@@ -125,12 +125,12 @@ impl BnCardBuf {
 
     pub fn serialize(item: BnCard) -> Result<Self, SerializationError> {
         let mut buf = Vec::new();
-        item.serialize_uncompressed(&mut buf)?;
+        item.serialize(&mut buf)?;
         Ok(Self { buf })
     }
 
     pub fn deserialize(&self) -> Result<BnCard, SerializationError> {
-        BnCard::deserialize_uncompressed(self.buf.as_slice())
+        BnCard::deserialize(self.buf.as_slice())
     }
 
     #[cfg(feature = "js")]
@@ -160,12 +160,12 @@ impl BnMaskedCardBuf {
 
     pub fn serialize(item: BnMaskedCard) -> Result<Self, SerializationError> {
         let mut buf = Vec::new();
-        item.serialize_uncompressed(&mut buf)?;
+        item.serialize(&mut buf)?;
         Ok(Self { buf })
     }
 
     pub fn deserialize(&self) -> Result<BnMaskedCard, SerializationError> {
-        BnMaskedCard::deserialize_uncompressed(self.buf.as_slice())
+        BnMaskedCard::deserialize(self.buf.as_slice())
     }
 
     #[cfg(feature = "js")]
@@ -195,12 +195,12 @@ impl BnRevealTokenBuf {
 
     pub fn serialize(item: BnRevealToken) -> Result<Self, SerializationError> {
         let mut buf = Vec::new();
-        item.serialize_uncompressed(&mut buf)?;
+        item.serialize(&mut buf)?;
         Ok(Self { buf })
     }
 
     pub fn deserialize(&self) -> Result<BnRevealToken, SerializationError> {
-        BnRevealToken::deserialize_uncompressed(self.buf.as_slice())
+        BnRevealToken::deserialize(self.buf.as_slice())
     }
 
     #[cfg(feature = "js")]
@@ -230,12 +230,12 @@ impl BnZKProofShuffleBuf {
 
     pub fn serialize(item: BnZKProofShuffle) -> Result<Self, SerializationError> {
         let mut buf = Vec::new();
-        item.serialize_uncompressed(&mut buf)?;
+        item.serialize(&mut buf)?;
         Ok(Self { buf })
     }
 
     pub fn deserialize(&self) -> Result<BnZKProofShuffle, SerializationError> {
-        BnZKProofShuffle::deserialize_uncompressed(self.buf.as_slice())
+        BnZKProofShuffle::deserialize(self.buf.as_slice())
     }
 
     #[cfg(feature = "js")]
@@ -265,12 +265,12 @@ impl BnZKProofKeyOwnershipBuf {
 
     pub fn serialize(item: BnZKProofKeyOwnership) -> Result<Self, SerializationError> {
         let mut buf = Vec::new();
-        item.serialize_uncompressed(&mut buf)?;
+        item.serialize(&mut buf)?;
         Ok(Self { buf })
     }
 
     pub fn deserialize(&self) -> Result<BnZKProofKeyOwnership, SerializationError> {
-        BnZKProofKeyOwnership::deserialize_uncompressed(self.buf.as_slice())
+        BnZKProofKeyOwnership::deserialize(self.buf.as_slice())
     }
 
     #[cfg(feature = "js")]
@@ -300,12 +300,12 @@ impl BnZKProofMaskingBuf {
 
     pub fn serialize(item: BnZKProofMasking) -> Result<Self, SerializationError> {
         let mut buf = Vec::new();
-        item.serialize_uncompressed(&mut buf)?;
+        item.serialize(&mut buf)?;
         Ok(Self { buf })
     }
 
     pub fn deserialize(&self) -> Result<BnZKProofMasking, SerializationError> {
-        BnZKProofMasking::deserialize_uncompressed(self.buf.as_slice())
+        BnZKProofMasking::deserialize(self.buf.as_slice())
     }
 
     #[cfg(feature = "js")]
@@ -335,12 +335,12 @@ impl BnZKProofRemaskingBuf {
 
     pub fn serialize(item: BnZKProofRemasking) -> Result<Self, SerializationError> {
         let mut buf = Vec::new();
-        item.serialize_uncompressed(&mut buf)?;
+        item.serialize(&mut buf)?;
         Ok(Self { buf })
     }
 
     pub fn deserialize(&self) -> Result<BnZKProofRemasking, SerializationError> {
-        BnZKProofRemasking::deserialize_uncompressed(self.buf.as_slice())
+        BnZKProofRemasking::deserialize(self.buf.as_slice())
     }
 
     #[cfg(feature = "js")]
@@ -370,12 +370,12 @@ impl BnZKProofRevealBuf {
 
     pub fn serialize(item: BnZKProofReveal) -> Result<Self, SerializationError> {
         let mut buf = Vec::new();
-        item.serialize_uncompressed(&mut buf)?;
+        item.serialize(&mut buf)?;
         Ok(Self { buf })
     }
 
     pub fn deserialize(&self) -> Result<BnZKProofReveal, SerializationError> {
-        BnZKProofReveal::deserialize_uncompressed(self.buf.as_slice())
+        BnZKProofReveal::deserialize(self.buf.as_slice())
     }
 
     #[cfg(feature = "js")]
@@ -405,12 +405,12 @@ impl BnParamsBuf {
 
     pub fn serialize(item: BnParameters) -> Result<Self, SerializationError> {
         let mut buf = Vec::new();
-        item.serialize_uncompressed(&mut buf)?;
+        item.serialize(&mut buf)?;
         Ok(Self { buf })
     }
 
     pub fn deserialize(&self) -> Result<BnParameters, SerializationError> {
-        BnParameters::deserialize_uncompressed(self.buf.as_slice())
+        BnParameters::deserialize(self.buf.as_slice())
     }
 
     #[cfg(feature = "js")]
@@ -442,14 +442,14 @@ impl BnKeypairBuf {
     pub fn serialize(_pk: BnPublicKey, _sk: BnPlayerSecretKey) -> Result<Self, SerializationError> {
         let mut pk = Vec::new();
         let mut sk = Vec::new();
-        _pk.serialize_uncompressed(&mut pk)?;
-        _sk.serialize_uncompressed(&mut sk)?;
+        _pk.serialize(&mut pk)?;
+        _sk.serialize(&mut sk)?;
         Ok(Self { pk, sk })
     }
 
     pub fn deserialize(&self) -> Result<(BnPublicKey, BnPlayerSecretKey), SerializationError> {
-        let pk = BnPublicKey::deserialize_uncompressed(self.pk.as_slice())?;
-        let sk = BnPlayerSecretKey::deserialize_uncompressed(self.sk.as_slice())?;
+        let pk = BnPublicKey::deserialize(self.pk.as_slice())?;
+        let sk = BnPlayerSecretKey::deserialize(self.sk.as_slice())?;
         Ok((pk, sk))
     }
 
@@ -485,14 +485,14 @@ impl BnMaskingOutputBuf {
     ) -> Result<Self, SerializationError> {
         let mut masked_card = Vec::new();
         let mut proof = Vec::new();
-        _masked_card.serialize_uncompressed(&mut masked_card)?;
-        _proof.serialize_uncompressed(&mut proof)?;
+        _masked_card.serialize(&mut masked_card)?;
+        _proof.serialize(&mut proof)?;
         Ok(Self { masked_card, proof })
     }
 
     pub fn deserialize(&self) -> Result<(BnMaskedCard, BnZKProofMasking), SerializationError> {
-        let masked_card = BnMaskedCard::deserialize_uncompressed(self.masked_card.as_slice())?;
-        let proof = BnZKProofMasking::deserialize_uncompressed(self.masked_card.as_slice())?;
+        let masked_card = BnMaskedCard::deserialize(self.masked_card.as_slice())?;
+        let proof = BnZKProofMasking::deserialize(self.masked_card.as_slice())?;
         Ok((masked_card, proof))
     }
 
@@ -533,7 +533,7 @@ impl BnShuffleOutputBuf {
         let mut proof = Vec::new();
         for card in _shuffled_deck {
             let mut buf = Vec::new();
-            card.serialize_uncompressed(&mut buf)?;
+            card.serialize(&mut buf)?;
             shuffled_deck.push(buf);
         }
         _proof.serialize(&mut proof)?;
@@ -546,9 +546,9 @@ impl BnShuffleOutputBuf {
     pub fn deserialize(&self) -> Result<(Vec<BnMaskedCard>, BnZKProofShuffle), SerializationError> {
         let mut shuffled_deck = Vec::new();
         for card in &self.shuffled_deck {
-            shuffled_deck.push(BnMaskedCard::deserialize_uncompressed(card.as_slice())?);
+            shuffled_deck.push(BnMaskedCard::deserialize(card.as_slice())?);
         }
-        let proof = BnZKProofShuffle::deserialize_uncompressed(self.proof.as_slice())?;
+        let proof = BnZKProofShuffle::deserialize(self.proof.as_slice())?;
         Ok((shuffled_deck, proof))
     }
 
@@ -590,8 +590,8 @@ impl BnRevealTokenWithProofBuf {
     ) -> Result<Self, SerializationError> {
         let mut reveal_token = Vec::new();
         let mut proof = Vec::new();
-        _reveal_token.serialize_uncompressed(&mut reveal_token)?;
-        _proof.serialize_uncompressed(&mut proof)?;
+        _reveal_token.serialize(&mut reveal_token)?;
+        _proof.serialize(&mut proof)?;
         Ok(Self {
             reveal_token,
             proof,
@@ -599,8 +599,8 @@ impl BnRevealTokenWithProofBuf {
     }
 
     pub fn deserialize(&self) -> Result<(BnRevealToken, BnZKProofReveal), SerializationError> {
-        let reveal_token = BnRevealToken::deserialize_uncompressed(self.reveal_token.as_slice())?;
-        let proof = BnZKProofReveal::deserialize_uncompressed(self.proof.as_slice())?;
+        let reveal_token = BnRevealToken::deserialize(self.reveal_token.as_slice())?;
+        let proof = BnZKProofReveal::deserialize(self.proof.as_slice())?;
         Ok((reveal_token, proof))
     }
 
