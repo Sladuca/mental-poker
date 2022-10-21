@@ -512,51 +512,6 @@ impl BnMaskingOutputBuf {
 }
 
 #[derive(Clone, Debug, Serialize, Deserialize, BorshSerialize, BorshDeserialize)]
-pub struct BnInitialDeckBuf {
-    pub(crate) deck: Vec<Vec<u8>>,
-}
-
-impl BnInitialDeckBuf {
-	pub fn new(deck: Vec<Vec<u8>>) -> Self {
-		Self { deck }
-	}
-
-	pub fn serialize(_deck: Vec<BnMaskedCard>) -> Result<Self, SerializationError> {
-		let mut deck = Vec::new();
-		for card in _deck {
-			let mut card_buf = Vec::new();
-			card.serialize(&mut card_buf)?;
-			deck.push(card_buf);
-		}
-		Ok(Self { deck })
-	}
-
-	pub fn deserialize(&self) -> Result<Vec<BnMaskedCard>, SerializationError> {
-		let mut deck = Vec::new();
-		for card_buf in self.deck.iter() {
-			let card = BnMaskedCard::deserialize(card_buf.as_slice())?;
-			deck.push(card);
-		}
-		Ok(deck)
-	}
-
-	#[cfg(feature = "js")]
-	pub fn from_js(val: JsValue) -> Result<BnInitialDeck, JsError> {
-		let s: Self = from_value(val).map_err(|_| JsError::new("serialization from js failed"))?;
-		s.deserialize()
-			.map_err(|_| JsError::new("deserialization to arkworks failed"))
-	}
-
-	#[cfg(feature = "js")]
-	pub fn to_js(deck: BnInitialDeck) -> Result<JsValue, JsError> {
-		let s = Self::serialize(deck)
-			.map_err(|_| JsError::new("serialization to arkworks failed"))?;
-		to_value(&s).map_err(|_| JsError::new("serialization to js failed"))
-	}
-}
-
-
-#[derive(Clone, Debug, Serialize, Deserialize, BorshSerialize, BorshDeserialize)]
 pub struct BnShuffleOutputBuf {
     pub shuffled_deck: Vec<Vec<u8>>,
     pub(crate) proof: Vec<u8>,
